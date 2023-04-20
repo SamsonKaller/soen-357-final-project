@@ -119,29 +119,6 @@ a.article-title:hover {
   background-color: #da3a16;
 }
 /* chat box */
-.bodyChat 
-{display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-background: linear-gradient(#912338 0%,#912338 130px, #dbd5d5 130px, n #d9dbd5 100%);
-}
-.main{
-  min-height: 100vh;
-  background: linear-gradient(to right top, #65dfc9,#6cdbeb);
-  display: flex;align-items: center;
-  justify-content: center;
-
-}
-.glass{
-  background: rgb(255, 255, 255);
-  min-width: 80vh;
-  min-height: 80vh;
-  width: 60%;
-  background: linear-gradient(to right bottom ,rgba(255,255,255,0.7),rgba(255,255,255.0.3));
-  border: #000000;
-  border-radius: 5rem;
-}
 .chatBox
 {
   background: linear-gradient(to right top, #65dfc9,#6cdbeb);
@@ -162,6 +139,7 @@ background: linear-gradient(#912338 0%,#912338 130px, #dbd5d5 130px, n #d9dbd5 1
 }
 .chat-container {
 			display: flex;
+      margin-left: 5%;
 			flex-direction: column;
 			height: 100vh;
 		}
@@ -174,6 +152,7 @@ background: linear-gradient(#912338 0%,#912338 130px, #dbd5d5 130px, n #d9dbd5 1
 			color: #fff;
 			font-size: 24px;
 			font-weight: bold;
+      border-top-right-radius: 3rem;
 		}
 		.chat-messages {
 			flex: 1;
