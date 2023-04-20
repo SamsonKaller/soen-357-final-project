@@ -24,7 +24,6 @@
 					{{ assignment.name }}, Due {{ assignment.date_due.strftime('%Y-%m-%d') }}:
 					<a href="{{ url_for('static', filename='assignments/' + assignment.upload_file) }}">{{ assignment.upload_file }}</a>
 				</p>
-				
 			{% endfor %}
 		</div>
 	</article>
@@ -33,9 +32,9 @@
 			<div class="article-metadata mb-4">
 				<h2>Grades</h2>
 			</div>
-<!--			 for a, g in courseContent['grades'].items() 
-				<p class="article-content">{{ a }} : {{ g }}%</a>
-			 endfor  -->
+			{% for a in course.assignments %}
+				<p class="article-content">{{ a.name }} : {% if a.grade == -1 %}Not yet graded.{% else %}{{ a.grade }} %{% endif %}</a>
+			{% endfor %}
 		</div>
 	</article>
 {% endblock content %}

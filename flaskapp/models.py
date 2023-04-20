@@ -35,6 +35,7 @@ class Assignment(db.Model):
     name = db.Column(db.String(32), nullable=False)
     date_due = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     upload_file = db.Column(db.String(32), nullable=False)
+    grade = db.Column(db.Float, default=-1)
     class_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
     
     def __repr__(self):
