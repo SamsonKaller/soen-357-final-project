@@ -39,8 +39,10 @@ Steps to run website:
 	For creating database (from flask shell):
 	
 	$ flask shell
-	$ db.create_all()
+	$ db.create_all() 	// create tables from models
+	$ db.drop_all()		// clear all tables
 	
-	Run website with command:
+	Run website with command (make sure virtual env is activated):
 	
+	$ venv\Scripts\activate
 	$ python run.py
