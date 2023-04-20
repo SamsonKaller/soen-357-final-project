@@ -1,4 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 	<h1>Home Page</h1>
+	
+	{% if not courseNames %}
+		<div class="container-fluid m-50">
+			<a type="button" class="btn btn-lg" href={{ url_for('fill_db') }}>Fill db!</button>
+		</div>
+	{% endif %}
+	
 {% endblock content %}

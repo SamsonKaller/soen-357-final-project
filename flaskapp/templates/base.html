@@ -64,7 +64,7 @@
 							<a href="#" class="list-group-item list-group-item-action py-2 ripple">
 								<span>Courses</span>
 							</a>
-							{% for course in courses %}
+							{% for course in courseNames %}
 								<a href="{{ url_for('course', coursename=course) }}" class="list-group-item list-group-item-action py-2 ripple {% if title == course %}active{% endif %}">
 									<span>- {{ course }}</span>
 								</a>
