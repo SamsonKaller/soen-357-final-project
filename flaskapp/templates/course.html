@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+	<h1 class="mb-4">{{ title }}</h1>
+	{% if not courseContent %}
+		<p>courseContent == none</p>
+	{% endif %}
+	<article class="media content-section">
+		<div class="media-body">
+			<div class="article-metadata mb-4">
+				<h2>Lectures</h2>
+			</div>
+			{% for i in courseContent['lectures'] %}
+				<p class="article-content">{{ i }}</a>
+			{% endfor %}
+		</div>
+	</article>
+	<article class="media content-section">
+		<div class="media-body">
+			<div class="article-metadata mb-4">
+				<h2>Assignments</h2>
+			</div>
+			{% for i in courseContent['assignments'] %}
+				<p class="article-content">{{ i }}</a>
+			{% endfor %}
+		</div>
+	</article>
+	<article class="media content-section">
+		<div class="media-body">
+			<div class="article-metadata mb-4">
+				<h2>Grades</h2>
+			</div>
+			{% for a, g in courseContent['grades'].items() %}
+				<p class="article-content">{{ a }} : {{ g }}%</a>
+			{% endfor %}
+		</div>
+	</article>
+{% endblock content %}
