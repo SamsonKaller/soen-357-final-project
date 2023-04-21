@@ -94,11 +94,13 @@ def account():
     return render_template('account.html', title='Account', courseNames=courseNames, image_file=image_file, form=form)
 
 
-@app.route("/course/<string:coursename>")
+@app.route("/course/<string:coursename>", methods=['GET'])
 def course(coursename):
     courseNames = getCourseNames(Course.query.all())
-    course = Course.query.filter_by(name=coursename).first_or_404()    
-    return render_template('course.html', title=coursename, courseNames=courseNames, course=course)
+    course = Course.query.filter_by(name=coursename).first_or_404()
+    filt = request.args.get('filt', '', type=str)
+    
+    return render_template('course.html', title=coursename, courseNames=courseNames, course=course, filt=filt)
 
 
 @app.route("/chat")
@@ -114,70 +116,79 @@ def calendar():
     
 
 def populate_db():
-    c1 = Course(name='ELEC 372', teacher='Mathew Frank')
-    c2 = Course(name='COEN 316', teacher='Nicole Blue')
-    c3 = Course(name='COEN 421', teacher='Jessica Simpson')
+    c1 = Course(name='COEN 316', teacher='Nicole Blue')
+    c2 = Course(name='COEN 421', teacher='Jessica Simpson')
+    c3 = Course(name='ELEC 372', teacher='Mathew Frank')
     c4 = Course(name='SOEN 357', teacher='Mister Goodday')
     db.session.add(c1)
     db.session.add(c2)
     db.session.add(c3)
     db.session.add(c4)
     
-    a1 = Assignment(name='Assignment 1', date_due=datetime.datetime(2023, 4, 19),   upload_file='elec372_ass1.pdf', course=c1)
-    a2 = Assignment(name='Assignment 2', date_due=datetime.datetime(2023, 3, 3),    upload_file='elec372_ass2.pdf', course=c1)
-    a3 = Assignment(name='Assignment 3', date_due=datetime.datetime(2023, 2, 28),   upload_file='elec372_ass3.pdf', course=c1)
-    db.session.add(a1)
-    db.session.add(a2)
-    db.session.add(a3)
     
-    a4 = Assignment(name='A1', date_due=datetime.datetime(2023, 1, 19),   upload_file='coen316_ass1.pdf', course=c2)
-    a5 = Assignment(name='A2', date_due=datetime.datetime(2023, 7, 3),    upload_file='coen316_ass2.pdf', course=c2)
-    a6 = Assignment(name='A3', date_due=datetime.datetime(2023, 5, 28),   upload_file='coen316_ass3.pdf', course=c2)
-    db.session.add(a4)
-    db.session.add(a5)
-    db.session.add(a6)
-    
-    a7 = Assignment(name='First Assignment', date_due=datetime.datetime(2023, 1, 19),   upload_file='coen421_ass1.pdf', course=c3)
-    a8 = Assignment(name='Second Assignment', date_due=datetime.datetime(2023, 7, 3),   upload_file='coen421_ass2.pdf', course=c3)
-    a9 = Assignment(name='Third Assignment', date_due=datetime.datetime(2023, 5, 28),   upload_file='coen421_ass3.pdf', course=c3)
-    db.session.add(a7)
-    db.session.add(a8)
-    db.session.add(a9)    
+    db.session.add(Assignment(name='Assignment 1', week=1, date_due=datetime.datetime(2023, 1,  9), course=c1))
+    db.session.add(Assignment(name='Assignment 2', week=2, date_due=datetime.datetime(2023, 1, 23), course=c1))
+    db.session.add(Assignment(name='Assignment 3', week=3, date_due=datetime.datetime(2023, 2, 14), course=c1))
+    db.session.add(Assignment(name='Assignment 4', week=4, date_due=datetime.datetime(2023, 2, 19), course=c1))
+    db.session.add(Assignment(name='Assignment 5', week=5, date_due=datetime.datetime(2023, 3, 11), course=c1))
+    db.session.add(Assignment(name='Assignment 6', week=6, date_due=datetime.datetime(2023, 3, 22), course=c1))
 
-    a10 = Assignment(name='Assingment 1', date_due=datetime.datetime(2023, 1, 19),  upload_file='soen357_ass1.pdf', course=c4)
-    a11 = Assignment(name='Assignment 2', date_due=datetime.datetime(2023, 7, 3),   upload_file='soen357_ass2.pdf', course=c4)
-    a12 = Assignment(name='Assignment 3', date_due=datetime.datetime(2023, 5, 28),  upload_file='soen357_ass3.pdf', course=c4)
-    db.session.add(a10)
-    db.session.add(a11)
-    db.session.add(a12)
     
-    l1 = Lecture(name='Introduction',           upload_file='elec372_lec1.pdf', course=c1)
-    l2 = Lecture(name='Linearization',          upload_file='elec372_lec2.pdf', course=c1)
-    l3 = Lecture(name='Components of Systems',  upload_file='elec372_lec3.pdf', course=c1)
-    db.session.add(l1)
-    db.session.add(l2)
-    db.session.add(l3)
-    
-    l4 = Lecture(name='Computer Technology',    upload_file='coen316_lec1.pdf', course=c2)
-    l5 = Lecture(name='Performance',            upload_file='coen316_lec2.pdf', course=c2)
-    l6 = Lecture(name='Computer Language',      upload_file='coen316_lec3.pdf', course=c2)
-    db.session.add(l4)
-    db.session.add(l5)
-    db.session.add(l6)
-    
-    l7 = Lecture(name='Introduction',       upload_file='coen421_lec1.pdf', course=c3)
-    l8 = Lecture(name='Instruction Sets',   upload_file='coen421_lec2.pdf', course=c3)
-    l9 = Lecture(name='CPUs',               upload_file='coen421_lec3.pdf', course=c3)
-    db.session.add(l7)
-    db.session.add(l8)
-    db.session.add(l9)    
+    db.session.add(Assignment(name='A1', week=1, date_due=datetime.datetime(2023, 1, 17), course=c2))
+    db.session.add(Assignment(name='A2', week=2, date_due=datetime.datetime(2023, 1, 30), course=c2))
+    db.session.add(Assignment(name='A3', week=3, date_due=datetime.datetime(2023, 2,  4), course=c2))
+    db.session.add(Assignment(name='A4', week=4, date_due=datetime.datetime(2023, 2, 19), course=c2))
+    db.session.add(Assignment(name='A5', week=5, date_due=datetime.datetime(2023, 3,  3), course=c2))
+    db.session.add(Assignment(name='A6', week=6, date_due=datetime.datetime(2023, 3, 28), course=c2))
 
-    l10 = Lecture(name='User Interaction Design',   upload_file='soen357_lec1.pdf', course=c4)
-    l11 = Lecture(name='User Interface',            upload_file='soen357_lec2.pdf', course=c4)
-    l12 = Lecture(name='User Experience',           upload_file='soen357_lec3.pdf', course=c4)
-    db.session.add(l10)
-    db.session.add(l11)
-    db.session.add(l12)
+    
+    db.session.add(Assignment(name= 'First Assignment', week=1, date_due=datetime.datetime(2023, 1, 19), course=c3))
+    db.session.add(Assignment(name='Second Assignment', week=2, date_due=datetime.datetime(2023, 1, 29), course=c3))
+    db.session.add(Assignment(name= 'Third Assignment', week=3, date_due=datetime.datetime(2023, 2, 13), course=c3))
+    db.session.add(Assignment(name='Fourth Assignment', week=4, date_due=datetime.datetime(2023, 2, 28), course=c3))
+    db.session.add(Assignment(name= 'Fifth Assignment', week=5, date_due=datetime.datetime(2023, 3,  8), course=c3))
+    db.session.add(Assignment(name= 'Sixth Assignment', week=6, date_due=datetime.datetime(2023, 3, 25), course=c3))
+    
+
+    db.session.add(Assignment(name='Homework 1', week=1, date_due=datetime.datetime(2023, 1, 16), course=c4))
+    db.session.add(Assignment(name='Homework 2', week=2, date_due=datetime.datetime(2023, 1, 30), course=c4))
+    db.session.add(Assignment(name='Homework 3', week=3, date_due=datetime.datetime(2023, 2, 10), course=c4))
+    db.session.add(Assignment(name='Homework 4', week=4, date_due=datetime.datetime(2023, 2, 22), course=c4))
+    db.session.add(Assignment(name='Homework 5', week=5, date_due=datetime.datetime(2023, 3,  5), course=c4))
+    db.session.add(Assignment(name='Homework 6', week=6, date_due=datetime.datetime(2023, 3, 14), course=c4))
+
+    
+    db.session.add(Lecture(name='Computer Technology', week=1, course=c1))
+    db.session.add(Lecture(name='Performance',         week=2, course=c1))
+    db.session.add(Lecture(name='Computer Language',   week=3, course=c1))
+    db.session.add(Lecture(name='Pipelining',          week=4, course=c1))
+    db.session.add(Lecture(name='Instructions',        week=5, course=c1))
+    db.session.add(Lecture(name='the CPU',             week=6, course=c1))
+    
+    
+    db.session.add(Lecture(name='Introduction',            week=1, course=c2))
+    db.session.add(Lecture(name='Instruction Sets',        week=2, course=c2))
+    db.session.add(Lecture(name='CPUs',                    week=3, course=c2))
+    db.session.add(Lecture(name='Memory Mapping',          week=4, course=c2))
+    db.session.add(Lecture(name='Interrupts',              week=5, course=c2))
+    db.session.add(Lecture(name='Embedded Systems Design', week=6, course=c2))
+
+
+    db.session.add(Lecture(name='Introduction',          week=1, course=c3))
+    db.session.add(Lecture(name='Linearization',         week=2, course=c3))
+    db.session.add(Lecture(name='Components of Systems', week=3, course=c3))
+    db.session.add(Lecture(name='Nyquist Plots',         week=4, course=c3))
+    db.session.add(Lecture(name='Transcombobulation',    week=5, course=c3))
+    db.session.add(Lecture(name='Impossible Labs',       week=6, course=c3))
+
+
+    db.session.add(Lecture(name='User Interaction Design', week=1, course=c4))
+    db.session.add(Lecture(name='User Interface',          week=2, course=c4))
+    db.session.add(Lecture(name='User Experience',         week=3, course=c4))
+    db.session.add(Lecture(name='Cognition',               week=4, course=c4))
+    db.session.add(Lecture(name='Mini-Project Info',       week=5, course=c4))
+    db.session.add(Lecture(name='Final Project Info',      week=6, course=c4))
+
 
     db.session.commit()    
     return

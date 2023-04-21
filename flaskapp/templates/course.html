@@ -2,6 +2,101 @@
 {% block content %}
 	<h1 class="mb-2">{{ title }}</h1>
 	<h2 class="article-metadata pb-2 mb-4">Instructor: {{ course.teacher }}</h2>
+	
+	<p class="content">Filter by:</p>
+	<div class="row">
+	{% if filt == 'ass' %}
+		<div class="col container-fluid">
+			<a
+				class="btn btn-block btn-danger"
+				href="{{ url_for('course', coursename=course.name) }}">
+				Assignments
+			</a>
+		</div>
+		<div class="col container-fluid">
+			<a
+				class="btn btn-block btn-secondary"
+				href="{{ url_for('course', coursename=course.name, filt='lec') }}">
+				Lectures
+			</a>
+		</div>
+	{% elif filt == 'lec' %}
+		<div class="col container-fluid">
+			<a
+				class="btn btn-block btn-secondary"
+				href="{{ url_for('course', coursename=course.name, filt='ass') }}">
+				Assignments
+			</a>
+		</div>
+		<div class="col container-fluid">
+			<a
+				class="btn btn-block btn-danger"
+				href="{{ url_for('course', coursename=course.name) }}">
+				Lectures
+			</a>
+		</div>
+	{% else %}
+		<div class="col container-fluid">
+			<a
+				class="btn btn-block btn-secondary"
+				href="{{ url_for('course', coursename=course.name, filt='ass') }}">
+				Assignments
+			</a>
+		</div>
+		<div class="col container-fluid">
+			<a
+				class="btn btn-block btn-secondary"
+				href="{{ url_for('course', coursename=course.name, filt='lec') }}">
+				Lectures
+			</a>
+		</div>
+	{% endif %}
+	</div>
+	
+	{% if filt == 'ass' %}
+		<article class="media content-section mt-4">
+			<div class="media-body pb-2">
+				<div class="article-metadata">
+					<h2>Assignments</h2>
+				</div>
+				{% for ass in course.assignments %}
+				<p class="article-content">
+					<a href="{{ url_for('static', filename='assignments/' + ass.upload_file) }}">{{ ass.name }}, Due: {{ ass.date_due.strftime("%Y-%m-%d") }}</a>
+				</p>
+				{% endfor %}
+			</div>
+		</article>
+	{% elif filt == 'lec' %}
+		<article class="media content-section mt-4">
+			<div class="media-body pb-2">
+				<div class="article-metadata">
+					<h2>Lectures</h2>
+				</div>
+				{% for lec in course.lectures %}
+				<p class="article-content">
+					<a href="{{ url_for('static', filename='lectures/' + lec.upload_file) }}">{{ lec.name }}</a>
+				</p>
+				{% endfor %}
+			</div>
+		</article>	
+	{% else %}
+		{% for i in range(1, 7) %}
+			<article class="media content-section mt-4">
+				<div class="media-body pb-2">
+					<div class="article-metadata">
+						<h2>Week {{ i }}</h2>
+					</div>
+					<p class="article-content">
+						<a href="{{ url_for('static', filename='lectures/' + course.lectures[i-1].upload_file) }}">{{ course.lectures[i-1].name }}</a>
+					</p>
+					<p class="article-content">
+						<a href="{{ url_for('static', filename='assignments/' + course.assignments[i-1].upload_file) }}">{{ course.assignments[i-1].name }}, Due: {{ course.assignments[i-1].date_due.strftime("%Y-%m-%d") }}</a>
+					</p>
+				</div>
+			</article>
+		{% endfor %}
+	{% endif %}
+	<!--
 	<article class="media content-section">
 		<div class="media-body pb-2">
 			<div class="article-metadata">
@@ -26,6 +121,7 @@
 				</p>
 			{% endfor %}
 		</div>
-	</article>
+	</article
+	-->
 
 {% endblock content %}

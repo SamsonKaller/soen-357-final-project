@@ -13,7 +13,6 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
-#    posts = db.relationship('Post', backref='author', lazy=True)
     
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
@@ -33,8 +32,9 @@ class Course(db.Model):
 class Assignment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), nullable=False)
+    week = db.Column(db.Integer, nullable=False)
     date_due = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    upload_file = db.Column(db.String(32), nullable=False)
+    upload_file = db.Column(db.String(32), nullable=False, default='def_ass.pdf')
     class_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
     
     def __repr__(self):
@@ -44,19 +44,10 @@ class Assignment(db.Model):
 class Lecture(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), nullable=False)
-    upload_file = db.Column(db.String(32), nullable=False)
+    week = db.Column(db.Integer, nullable=False)
+    upload_file = db.Column(db.String(32), nullable=False, default='def_lec.pdf')
     class_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
     
     def __repr__(self):
         return f"Assignment('{self.name}', '{self.upload_file}')"
 
-
-#class Post(db.Model):
-#    id = db.Column(db.Integer, primary_key=True)
-#    title = db.Column(db.String(100), nullable=False)
-#    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-#    content = db.Column(db.Text, nullable=False)
-#    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-#    
-#    def __repr__(self):
-#        return f"Post('{self.title}', '{self.date_posted}')"
