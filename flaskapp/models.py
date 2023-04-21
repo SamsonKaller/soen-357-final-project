@@ -19,6 +19,38 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
 
+class Course(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(16), unique=True, nullable=False)
+    teacher = db.Column(db.String(64), nullable=False)
+    assignments = db.relationship('Assignment', backref='course', lazy=True)
+    lectures = db.relationship('Lecture', backref='course', lazy=True)
+    
+    def __repr__(self):
+        return f"Course('{self.name}', '{self.teacher}')"
+
+
+class Assignment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32), nullable=False)
+    date_due = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    upload_file = db.Column(db.String(32), nullable=False)
+    class_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+    
+    def __repr__(self):
+        return f"Assignment('{self.name}', '{self.upload_file}', '{self.course.name}')"
+
+
+class Lecture(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32), nullable=False)
+    upload_file = db.Column(db.String(32), nullable=False)
+    class_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+    
+    def __repr__(self):
+        return f"Assignment('{self.name}', '{self.upload_file}')"
+
+
 #class Post(db.Model):
 #    id = db.Column(db.Integer, primary_key=True)
 #    title = db.Column(db.String(100), nullable=False)

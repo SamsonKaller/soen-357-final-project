@@ -1,23 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-	<h1 class="mb-4">{{ title }}</h1>
+	<h1 class="mb-2">{{ title }}</h1>
+	<h2 class="article-metadata pb-2 mb-4">Instructor: {{ course.teacher }}</h2>
 	<article class="media content-section">
-		<div class="media-body">
-			<div class="article-metadata mb-4">
+		<div class="media-body pb-2">
+			<div class="article-metadata">
 				<h2>Lectures</h2>
 			</div>
-			{% for i in courseContent['lectures'] %}
-				<p class="article-content">{{ i }}</a>
+			{% for lec in course.lectures %}
+				<p class="article-content">
+					<a href="{{ url_for('static', filename='lectures/' + lec.upload_file) }}">{{ lec.name }}</a>
+				</p>
 			{% endfor %}
 		</div>
 	</article>
 	<article class="media content-section">
-		<div class="media-body">
-			<div class="article-metadata mb-4">
+		<div class="media-body pb-2">
+			<div class="article-metadata">
 				<h2>Assignments</h2>
 			</div>
-			{% for i in courseContent['assignments'] %}
-				<p class="article-content">{{ i }}</a>
+			{% for assignment in course.assignments %}
+				<p class="article-content">
+					{{ assignment.name }}, Due {{ assignment.date_due.strftime('%Y-%m-%d') }}:
+					<a href="{{ url_for('static', filename='assignments/' + assignment.upload_file) }}">{{ assignment.upload_file }}</a>
+				</p>
 			{% endfor %}
 		</div>
 	</article>
@@ -26,8 +32,8 @@
 			<div class="article-metadata mb-4">
 				<h2>Grades</h2>
 			</div>
-			{% for a, g in courseContent['grades'].items() %}
-				<p class="article-content">{{ a }} : {{ g }}%</a>
+			{% for a in course.assignments %}
+				<p class="article-content">{{ a.name }} : {% if a.grade == -1 %}Not yet graded.{% else %}{{ a.grade }} %{% endif %}</a>
 			{% endfor %}
 		</div>
 	</article>

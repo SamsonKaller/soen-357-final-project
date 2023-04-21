@@ -38,11 +38,12 @@ Steps to run website:
 	
 	For creating database (from flask shell):
 	
-	$ flask shell
-	$ db.create_all() 	// create tables from models
-	$ db.drop_all()		// clear all tables
+	$ set FLASK_APP=run.py	// set flask app env variable to app (run.py)
+	$ flask shell			// enter the shell
+	$ db.create_all() 		// create tables from models
+	$ db.drop_all()			// clear all tables
 	
 	Run website with command (make sure virtual env is activated):
 	
-	$ venv\Scripts\activate
-	$ python run.py
+	$ venv\Scripts\activate		// if virtual env not already activated
+	$ python run.py				// run the app
