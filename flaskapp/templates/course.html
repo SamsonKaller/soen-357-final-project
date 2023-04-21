@@ -27,14 +27,5 @@
 			{% endfor %}
 		</div>
 	</article>
-	<article class="media content-section">
-		<div class="media-body">
-			<div class="article-metadata mb-4">
-				<h2>Grades</h2>
-			</div>
-			{% for a in course.assignments %}
-				<p class="article-content">{{ a.name }} : {% if a.grade == -1 %}Not yet graded.{% else %}{{ a.grade }} %{% endif %}</a>
-			{% endfor %}
-		</div>
-	</article>
+
 {% endblock content %}

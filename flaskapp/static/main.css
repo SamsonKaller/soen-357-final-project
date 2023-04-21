@@ -6,6 +6,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
+  font: 'Gill Sans';
 }
 
 .bg-steel {
@@ -139,9 +140,9 @@ a.article-title:hover {
 }
 .chat-container {
 			display: flex;
-      margin-left: 5%;
+			margin-left: 5%;
 			flex-direction: column;
-			height: 100vh;
+			height: 150%;
 		}
 		.chat-header {
 			display: flex;
