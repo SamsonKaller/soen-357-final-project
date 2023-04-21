@@ -1,11 +1,79 @@
 {% extends "base.html" %}
 {% block content %}
-	<h1>Home Page</h1>
+	<h1 class="mb-4">Home Page</h1>
 	
-	{% if not courseNames %}
+	{% if not courses %}
 		<div class="container-fluid m-50">
 			<a type="button" class="btn btn-lg" href={{ url_for('fill_db') }}>Fill db!</button>
 		</div>
 	{% endif %}
+	
+	<h3 class="mb-4">Summary of Grades:</h3>
+
+	<div class="row">
+		{% for course in courses %}
+			<div class="col-lg-6 col-md-12 mb-4">
+				<div class="card text-black text-center mb-4">
+					<div class="card-body pb-2">
+						<h5 class="card-title border-bottom pb-3">{{ course.name }}</h5>
+						<table class="container-fluid">
+							<tr>
+								<th>Item</th>
+								<th>Grade</th>
+								<th>Weight</th>
+							</tr>
+							{% for ass in course.assignments %}
+								<tr>
+									<td>{{ ass.name }}</td>
+									<td>{{ (range(0, 10001) | random) / 100 }}</td>
+									<td>10%</td>
+								</tr>
+							{% endfor %}
+							<tr>
+								<td>Midterm</td>
+								<td>{{ (range(0, 10001) | random) / 100 }}%</td>
+								<td>20%</td>
+							</tr>
+							<tr>
+								<td>Final</td>
+								<td>{{ (range(0, 10001) | random) / 100 }}%</td>
+								<td>30%</td>
+							</tr>
+							<tr>
+								<td><b>Total</b></td>
+								<td><b>{{ (range(0, 10001) | random) / 100 }}%</b></td>
+								<td><b>100%</b></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="card p-4">
+		<div class="card-title">Ressources</div>
+		<div class=card-deck>
+			<!-- First Card -->
+			<div class="card p-4">
+				<div class="card-title">Title here</div>
+				<div class="card-body">Body here</div>
+			</div>
+			<!-- Second Card -->
+			<div class="card p-4">
+				<div class="card-title">Title here</div>
+				<div class="card-body">Body here</div>
+			</div>
+			<!-- Third Card -->
+			<div class="card p-4">
+				<div class="card-title">Title here</div>
+				<div class="card-body">Body here</div>
+			</div>
+			<!-- Four Card -->
+			<div class="card p-4">
+				<div class="card-title">Title here</div>
+				<div class="card-body">Body here</div>
+			</div>
+		</div>
+	</div>
 	
 {% endblock content %}

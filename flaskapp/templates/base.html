@@ -69,6 +69,13 @@
 									<span>- {{ course }}</span>
 								</a>
 							{% endfor %}
+							{% if not courseNames %}	
+								{% for course in courses %}
+									<a href="{{ url_for('course', coursename=course.name) }}" class="list-group-item list-group-item-action py-2 ripple {% if title == course %}active{% endif %}">
+										<span>- {{ course.name }}</span>
+									</a>
+								{% endfor %}
+							{% endif %}
 						</div>
 				</nav>
 			</div>

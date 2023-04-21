@@ -31,8 +31,8 @@ def save_picture(form_picture):
 @app.route("/")
 @app.route("/home")
 def home():
-    courseNames = getCourseNames(Course.query.all())
-    return render_template('home.html', courseNames=courseNames)
+    courses = Course.query.all()
+    return render_template('home.html', courses=courses)
 
     
 @app.route("/register", methods=['GET', 'POST'])
@@ -124,19 +124,15 @@ def populate_db():
     db.session.add(c4)
     
     a1 = Assignment(name='Assignment 1', date_due=datetime.datetime(2023, 4, 19), upload_file='elec372_ass1.pdf', course=c1)
-    a1.grade = 50.0
     a2 = Assignment(name='Assignment 2', date_due=datetime.datetime(2023, 3, 3), upload_file='elec372_ass2.pdf', course=c1)
-    a2.grade = 80.5
     a3 = Assignment(name='Assignment 3', date_due=datetime.datetime(2023, 2, 28), upload_file='elec372_ass3.pdf', course=c1)
     db.session.add(a1)
     db.session.add(a2)
     db.session.add(a3)
     
     a4 = Assignment(name='Assignment 1', date_due=datetime.datetime(2023, 1, 19), upload_file='coen316_ass1.pdf', course=c2)
-    a4.grade = 72
     a5 = Assignment(name='Assignment 2', date_due=datetime.datetime(2023, 7, 3), upload_file='coen316_ass2.pdf', course=c2)
     a6 = Assignment(name='Assignment 3', date_due=datetime.datetime(2023, 5, 28), upload_file='coen316_ass3.pdf', course=c2)
-    a6.grade = 35.6
     db.session.add(a4)
     db.session.add(a5)
     db.session.add(a6)
@@ -144,17 +140,13 @@ def populate_db():
     a7 = Assignment(name='Assignment 1', date_due=datetime.datetime(2023, 1, 19), upload_file='coen421_ass1.pdf', course=c3)
     a8 = Assignment(name='Assignment 2', date_due=datetime.datetime(2023, 7, 3), upload_file='coen421_ass2.pdf', course=c3)
     a9 = Assignment(name='Assignment 3', date_due=datetime.datetime(2023, 5, 28), upload_file='coen421_ass3.pdf', course=c3)
-    a9.grade = 44
     db.session.add(a7)
     db.session.add(a8)
     db.session.add(a9)    
 
     a10 = Assignment(name='Assignment 1', date_due=datetime.datetime(2023, 1, 19), upload_file='soen357_ass1.pdf', course=c4)
-    a10.grade = 100
     a11 = Assignment(name='Assignment 2', date_due=datetime.datetime(2023, 7, 3), upload_file='soen357_ass2.pdf', course=c4)
-    a11.grade = 80.5
     a12 = Assignment(name='Assignment 3', date_due=datetime.datetime(2023, 5, 28), upload_file='soen357_ass3.pdf', course=c4)
-    a12.grade = 94.3
     db.session.add(a10)
     db.session.add(a11)
     db.session.add(a12)
