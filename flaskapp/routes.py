@@ -198,8 +198,4 @@ def fill_db():
     populate_db()
     return redirect(url_for('home'))
     
-
-@app.route('/test')
-def test():
-    courseNames = getCourseNames(Course.query.all())    
-    return render_template('test.html', title='Test', courseNames=courseNames)
+    

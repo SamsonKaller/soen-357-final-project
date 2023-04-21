@@ -61,7 +61,7 @@
 				</div>
 				{% for ass in course.assignments %}
 				<p class="article-content">
-					<a href="{{ url_for('static', filename='assignments/' + ass.upload_file) }}">{{ ass.name }}, Due: {{ ass.date_due.strftime("%Y-%m-%d") }}</a>
+					Week {{ ass.week }}:  <a href="{{ url_for('static', filename='assignments/' + ass.upload_file) }}">{{ ass.name }} - Due: {{ ass.date_due.strftime("%Y-%m-%d") }}</a>
 				</p>
 				{% endfor %}
 			</div>
@@ -74,7 +74,7 @@
 				</div>
 				{% for lec in course.lectures %}
 				<p class="article-content">
-					<a href="{{ url_for('static', filename='lectures/' + lec.upload_file) }}">{{ lec.name }}</a>
+					Week {{ lec.week }}:  <a href="{{ url_for('static', filename='lectures/' + lec.upload_file) }}">{{ lec.name }}</a>
 				</p>
 				{% endfor %}
 			</div>
@@ -90,38 +90,10 @@
 						<a href="{{ url_for('static', filename='lectures/' + course.lectures[i-1].upload_file) }}">{{ course.lectures[i-1].name }}</a>
 					</p>
 					<p class="article-content">
-						<a href="{{ url_for('static', filename='assignments/' + course.assignments[i-1].upload_file) }}">{{ course.assignments[i-1].name }}, Due: {{ course.assignments[i-1].date_due.strftime("%Y-%m-%d") }}</a>
+						<a href="{{ url_for('static', filename='assignments/' + course.assignments[i-1].upload_file) }}">{{ course.assignments[i-1].name }} - Due: {{ course.assignments[i-1].date_due.strftime("%Y-%m-%d") }}</a>
 					</p>
 				</div>
 			</article>
 		{% endfor %}
 	{% endif %}
-	<!--
-	<article class="media content-section">
-		<div class="media-body pb-2">
-			<div class="article-metadata">
-				<h2>Lectures</h2>
-			</div>
-			{% for lec in course.lectures %}
-				<p class="article-content">
-					<a href="{{ url_for('static', filename='lectures/' + lec.upload_file) }}">{{ lec.name }}</a>
-				</p>
-			{% endfor %}
-		</div>
-	</article>
-	<article class="media content-section">
-		<div class="media-body pb-2">
-			<div class="article-metadata">
-				<h2>Assignments</h2>
-			</div>
-			{% for assignment in course.assignments %}
-				<p class="article-content">
-					{{ assignment.name }}, Due {{ assignment.date_due.strftime('%Y-%m-%d') }}:
-					<a href="{{ url_for('static', filename='assignments/' + assignment.upload_file) }}">{{ assignment.upload_file }}</a>
-				</p>
-			{% endfor %}
-		</div>
-	</article
-	-->
-
 {% endblock content %}

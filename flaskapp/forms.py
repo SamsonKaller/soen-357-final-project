@@ -49,8 +49,3 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError('That emai is taken. Please choose another.')
 
-
-#class PostForm(FlaskForm):
-#    title = StringField('Title', validators=[DataRequired()])
-#    content = TextAreaField('Content', validators=[DataRequired()])
-#    submit = SubmitField('Post')

@@ -35,6 +35,11 @@
 			<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
 				<div class="container-fluid">
 					<a class="navbar-brand mr-1" href="/">
+						<a class="text-white" data-toggle="collapse" href="#sidebarMenu" role="button" aria-expanded="false" aria-controls="sidebarMenu">
+							<i class="fas fa-bars fa-lg mr-4"></i>
+						</a>
+					</a>
+					<a class="navbar-brand mr-1" href="/">
 						<i class="fas fa-school mr-2"></i>Stoodle
 					</a>
 					<div class="collapse navbar-collapse" id="navbarToggle">
@@ -49,10 +54,10 @@
 								</a>
 							{% else %}
 								<a class="nav-item nav-link" href="{{ url_for('login') }}">
-									<i class="fa fa-user" aria-hidden="true"></i>Login
+									<i class="fa fa-user mr-2" aria-hidden="true"></i>Login
 								</a>
 								<a class="nav-item nav-link" href="{{ url_for('register') }}">
-									Register<i class="fa fa-sign-in" aria-hidden="true"></i>
+									Register<i class="fa fa-sign-in ml-2" aria-hidden="true"></i>
 								</a>
 							{% endif %}
 						</div>
@@ -68,7 +73,7 @@
 					<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
 						<div class="list-group list-group-flush mx-3 mt-4">
 							<a href="{{ url_for('home') }}" class="list-group-item list-group-item-action py-2 ripple {% if not title %}active{% endif %}" aria-current="true">
-								<span><i class="fa fa-home mr-2" aria-hidden="true"></i> Home</span>
+								<span><i class="fa fa-home mr-2" aria-hidden="true"></i>Home</span>
 							</a>
 							<a href="{{ url_for('chat') }}" class="list-group-item list-group-item-action py-2 ripple {% if title == 'Chat' %}active{% endif %}">
 								<span><i class="fa fa-commenting mr-2" aria-hidden="true"></i>Chat</span>
@@ -95,7 +100,7 @@
 					</nav>
 				</div>
 				<!-- content -->
-				<div class="container-fluid">
+				<div class="container-fluid col-sm-12">
 				{% with messages = get_flashed_messages(with_categories=true) %}
 					{% if messages %}
 						{% for category, message in messages %}
