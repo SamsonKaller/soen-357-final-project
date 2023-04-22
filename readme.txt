@@ -36,22 +36,28 @@ Steps to run website:
 	
 		$ pip install Pillow
 	
-	Run website with command (make sure virtual env is activated):
+Run website with command (make sure virtual env is activated):
 	
 	$ venv\Scripts\activate		// if virtual env not already activated
 	$ python run.py				// run the app
 	
-	Visit website by opening your favorite web browser typing the following URL:
+Visit website by opening your favorite web browser typing the following URL:
 	
-	http://localhost:5000 or http://127.0.0.1:5000
+	http://localhost:5000
+	or
+	http://127.0.0.1:5000
 	
 	
-	Misc:
-	
-	For creating database (from flask shell):
+Misc:
 	
 	$ set FLASK_APP=run.py		// set flask app env variable to app (run.py)
 	$ set FLASK_DEBUG=1		// launch in debug mode
+	
+	once the above two commands are run, the app can be launched using flask (instead of "python run.py"):
+	
+	$ flask run
+	
+	For creating database (from flask shell):	
 	
 	$ flask shell			// enter the shell
 	$ db.create_all() 		// create tables from models
