@@ -47,3 +47,8 @@ Steps to run website:
 	
 	$ venv\Scripts\activate		// if virtual env not already activated
 	$ python run.py				// run the app
+	
+	Visit website by opening your favorite web browser typing the following URL:
+	
+	http://localhost:5000 or http://127.0.0.1:5000
+	
